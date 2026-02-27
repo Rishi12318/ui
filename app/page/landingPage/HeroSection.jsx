@@ -9,19 +9,15 @@ const phrases = [
   "Compliance Made Easy",
 ];
 
-// Professional fintech / office stock images (Unsplash)
+// Fintech / tax-planning stock images
 const images = [
-  "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=700&q=55",
-  "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=700&q=55",
-  "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&q=55",
-  "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=55",
-  "https://images.unsplash.com/photo-1573164713988-8665fc963095?w=700&q=55",
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&q=55",
-  "https://images.unsplash.com/photo-1553028826-f4804a6dba3b?w=700&q=55",
-  "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&q=55",
+  "https://media.istockphoto.com/id/1403453245/photo/the-financiers-are-calculating-personal-taxes-for-their-customers.jpg?s=612x612&w=0&k=20&c=B0pOXB8IH0TEMsF8ztFno6ZrpACRCFrmCdV2NNkw_gc=",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdA5yXUrVIM2W9S8VVoEKNq0G2TUNdAv56lg&s",
+  "https://thumbs.dreamstime.com/b/image-shows-professional-accountant-tax-preparer-calculating-returns-calculator-computer-imagery-represents-415986676.jpg",
+  "https://www.shutterstock.com/image-photo/paperwork-businesswoman-writing-data-spreadsheet-260nw-2567424375.jpg",
 ];
-// Duplicate for seamless loop
-const allImages = [...images, ...images];
+// Triplicate for a long seamless loop
+const allImages = [...images, ...images, ...images];
 
 export default function HeroSection() {
   const [index, setIndex] = useState(0);
@@ -44,12 +40,12 @@ export default function HeroSection() {
       <style>{`
         @keyframes scrollStrip {
           0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+          100% { transform: translateX(-33.333%); }
         }
         .image-strip {
           display: flex;
           width: max-content;
-          animation: scrollStrip 38s linear infinite;
+          animation: scrollStrip 32s linear infinite;
         }
       `}</style>
 
@@ -61,13 +57,13 @@ export default function HeroSection() {
         <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
           <div
             className="image-strip h-full"
-            style={{ opacity: 0.28 }}
+            style={{ opacity: 0.32 }}
           >
             {allImages.map((src, i) => (
               <div
                 key={i}
                 className="relative h-full flex-shrink-0"
-                style={{ width: i % 3 === 1 ? "340px" : "260px" }}
+                style={{ width: i % 2 === 0 ? "480px" : "380px" }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
