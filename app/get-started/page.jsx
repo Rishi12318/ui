@@ -49,11 +49,22 @@ export default function GetStartedPage() {
 
   return (
     <div
-      className="relative min-h-screen flex items-center justify-center text-white"
+      className="relative min-h-screen flex items-center justify-center"
       style={{ fontFamily: "var(--font-nunito), sans-serif" }}
     >
       {/* Same fog background as hero */}
       <FogBackground />
+
+      {/* White top-half overlay */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(to bottom, #ffffff 0%, #ffffff 50%, transparent 50%)",
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
+      />
 
       {/* Content */}
       <div
@@ -75,8 +86,8 @@ export default function GetStartedPage() {
             padding: "6px 18px",
             borderRadius: "999px",
             border: "1px solid rgba(255,255,255,0.25)",
-            background: "rgba(255,255,255,0.08)",
-            color: "rgba(255,255,255,0.7)",
+            background: "rgba(255,255,255,0.1)",
+            color: "rgba(255,255,255,0.75)",
             fontStyle: "italic",
           }}
         >
@@ -93,8 +104,7 @@ export default function GetStartedPage() {
             fontWeight: 900,
             lineHeight: 1.1,
             letterSpacing: "-0.025em",
-            color: "transparent",
-            WebkitTextStroke: "2px rgba(255,255,255,0.9)",
+            color: "#ffffff",
             textAlign: "center",
             marginBottom: "1rem",
           }}
@@ -138,7 +148,7 @@ export default function GetStartedPage() {
               whileHover={{
                 y: -8,
                 boxShadow: "0 28px 64px rgba(0,0,0,0.3)",
-                background: "rgba(255,255,255,0.14)",
+                background: "rgba(255,255,255,0.16)",
               }}
               style={{
                 background: "rgba(255,255,255,0.09)",
@@ -188,7 +198,7 @@ export default function GetStartedPage() {
                 style={{
                   fontSize: "0.95rem",
                   fontStyle: "italic",
-                  color: "rgba(210,228,255,0.8)",
+                  color: "rgba(210,228,255,0.82)",
                   lineHeight: 1.65,
                   margin: 0,
                   flexGrow: 1,
@@ -250,7 +260,7 @@ export default function GetStartedPage() {
             transition: "color 0.2s",
             fontFamily: "var(--font-nunito), sans-serif",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.8)")}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.85)")}
           onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
         >
           ← Back to home
