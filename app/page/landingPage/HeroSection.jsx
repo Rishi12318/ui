@@ -60,6 +60,7 @@ export default function HeroSection() {
             color: "rgba(255,255,255,0.75)",
             letterSpacing: "0.18em",
             fontFamily: "var(--font-nunito), sans-serif",
+            fontStyle: "italic",
           }}
           variants={fadeUp(0)}
           initial="hidden"
@@ -96,6 +97,7 @@ export default function HeroSection() {
             fontFamily: "var(--font-nunito), sans-serif",
             fontSize: "1.15rem",
             fontWeight: 700,
+            fontStyle: "italic",
             color: "rgba(255,255,255,0.88)",
             letterSpacing: "0.01em",
             marginBottom: "1.25rem",
@@ -117,6 +119,7 @@ export default function HeroSection() {
               fontFamily: "var(--font-nunito), sans-serif",
               fontSize: "1.1rem",
               fontWeight: 400,
+              fontStyle: "italic",
               color: "rgba(220,235,255,0.92)",
               transition: "opacity 0.4s ease, transform 0.4s ease",
               opacity: visible ? 1 : 0,
@@ -136,11 +139,13 @@ export default function HeroSection() {
           animate="visible"
         >
           <button
-            className="px-8 py-3 rounded-lg font-semibold text-sm tracking-wide transition-all duration-200"
+            className="px-8 py-3 font-semibold text-sm tracking-wide transition-all duration-200"
             style={{
               background: "rgba(255,255,255,0.95)",
               color: "#2a4a6e",
               fontFamily: "var(--font-nunito), sans-serif",
+              fontStyle: "italic",
+              borderRadius: "999px",
               boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.background = "#ffffff")}
@@ -157,6 +162,7 @@ export default function HeroSection() {
               color: "rgba(255,255,255,0.9)",
               border: "1px solid rgba(255,255,255,0.2)",
               fontFamily: "var(--font-nunito), sans-serif",
+              fontStyle: "italic",
             }}
             onMouseEnter={(e) =>
               (e.currentTarget.style.background = "rgba(255,255,255,0.14)")
@@ -176,7 +182,7 @@ export default function HeroSection() {
           variants={fadeUp(0.5)}
           initial="hidden"
           animate="visible"
-          style={{ width: "580px" }}
+          style={{ width: "700px" }}
         >
           <Lottie
             animationData={accountBalanceAnim}
