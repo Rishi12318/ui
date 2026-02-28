@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useParallax } from "@/app/hooks/useParallax";
+import { useEffect, useRef, useState } from "react";
 
 const problems = [
   {
@@ -24,134 +23,176 @@ const problems = [
 
 export default function Problem() {
   const [index, setIndex] = useState(0);
-  const [phase, setPhase] = useState("in"); // "in" | "out"
-  const { sectionRef, bgRef } = useParallax(50);
+  const [phase, setPhase] = useState("in");
+  const sectionRef = useRef(null);
+  const imgRef = useRef(null);
+  const rafRef = useRef(null);
 
+  /* ── Cycling cards ── */
   useEffect(() => {
-    // Each card: 2.6s visible → 0.6s fade out → swap → fade in
     let fadeOut;
     let next;
-
     const cycle = () => {
-      // Stay visible for 2600ms then fade out
       fadeOut = setTimeout(() => {
         setPhase("out");
-        // After fade-out duration (600ms), advance index and fade back in
         next = setTimeout(() => {
           setIndex((prev) => (prev + 1) % problems.length);
           setPhase("in");
         }, 600);
       }, 2600);
     };
-
     cycle();
-    const interval = setInterval(cycle, 3200); // 2600 + 600
+    const interval = setInterval(cycle, 3200);
+    return () => { clearTimeout(fadeOut); clearTimeout(next); clearInterval(interval); };
+  }, []);
 
+  /* ── Scroll-linked parallax ── */
+  useEffect(() => {
+    const update = () => {
+      const section = sectionRef.current;
+      const img = imgRef.current;
+      if (!section || !img) return;
+      const rect = section.getBoundingClientRect();
+      const sectionH = section.offsetHeight;
+      const imgH = img.offsetHeight;
+      // progress: 0 when bottom of section enters viewport bottom, 1 when top exits viewport top
+      const progress = (window.innerHeight - rect.top) / (window.innerHeight + sectionH);
+      const clamped = Math.max(0, Math.min(1, progress));
+      const maxMove = imgH - sectionH;
+      img.style.transform = `translateY(${-clamped * maxMove}px)`;
+    };
+
+    const onScroll = () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(update);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    update(); // set initial position
     return () => {
-      clearTimeout(fadeOut);
-      clearTimeout(next);
-      clearInterval(interval);
+      window.removeEventListener("scroll", onScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
   const current = problems[index];
 
   return (
-    <section ref={sectionRef} className="relative w-full min-h-screen overflow-hidden flex flex-col items-center justify-center">
+    /* ── outer wrapper: page-level padding, background colour between sections ── */
+    <div className="bg-[#f0f4f8] py-20 px-6 md:px-16">
 
-      {/* ── Full-bleed background image ── */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        ref={bgRef}
-        src="https://www.constructionspecifier.com/wp-content/uploads/2023/10/The-Spiral-BIG-foreshortened-bottom-to-top-view.jpg"
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover"
+      {/* ── windowed section ── constrained, clips the moving image ── */}
+      <section
+        ref={sectionRef}
+        className="relative mx-auto overflow-hidden flex flex-col items-center justify-center"
         style={{
-          filter: "brightness(0.75) saturate(0.85)",
-          willChange: "transform",
-          transformOrigin: "center center",
+          maxWidth: "1200px",
+          height: "620px",
+          borderRadius: "24px",
+          boxShadow: "0 24px 64px rgba(0,0,0,0.22)",
         }}
-      />
-
-      {/* Subtle dark overlay so text stays readable */}
-      <div
-        className="absolute inset-0"
-        style={{ background: "rgba(0,0,0,0.42)" }}
-      />
-
-      {/* ── Content ── */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-2xl w-full">
-
-        {/* Badge */}
-        <span
-          className="inline-block mb-8 text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full"
+      >
+        {/* ── Parallax background image — taller than section so it can travel ── */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          ref={imgRef}
+          src="https://www.constructionspecifier.com/wp-content/uploads/2023/10/The-Spiral-BIG-foreshortened-bottom-to-top-view.jpg"
+          alt=""
           style={{
-            background: "rgba(220,50,50,0.12)",
-            border: "1px solid rgba(220,80,80,0.28)",
-            color: "rgba(255,160,160,0.85)",
-            letterSpacing: "0.18em",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "155%",       /* taller than section = room to scroll */
+            objectFit: "cover",
+            objectPosition: "center top",
+            filter: "brightness(0.72) saturate(0.82)",
+            willChange: "transform",
+            userSelect: "none",
+            pointerEvents: "none",
           }}
-        >
-          The Problem
-        </span>
+        />
 
-        {/* Static headline */}
-        <h2
-          className="text-4xl md:text-5xl font-bold leading-tight mb-4"
-          style={{ color: "#ffffff", textShadow: "0 2px 32px rgba(0,0,0,0.5)" }}
-        >
-          Stressed about{" "}
-          <span style={{ color: "#7aaaff" }}>Tax Filing?</span>
-        </h2>
-        <p
-          className="text-sm mb-16"
-          style={{ color: "rgba(180,205,255,0.60)", lineHeight: "1.75", maxWidth: "440px" }}
-        >
-          Most salaried individuals lose money and peace of mind every filing season — not because they're careless, but because the system is genuinely complicated.
-        </p>
-
-        {/* Cycling pain-point — plain text only, no box */}
+        {/* Overlay */}
         <div
-          style={{
-            transition: "opacity 0.6s ease, transform 0.6s ease",
-            opacity: phase === "in" ? 1 : 0,
-            transform: phase === "in" ? "translateY(0px)" : "translateY(14px)",
-            willChange: "opacity, transform",
-          }}
-        >
-          <h3
-            className="text-4xl md:text-5xl font-bold mb-4"
-            style={{ color: "#ffffff", textShadow: "0 2px 20px rgba(0,0,0,0.6)" }}
-          >
-            {current.title}
-          </h3>
-          <p
-            className="text-lg font-medium leading-relaxed mx-auto"
-            style={{ color: "rgba(230,240,255,0.85)", maxWidth: "520px", textShadow: "0 1px 12px rgba(0,0,0,0.5)" }}
-          >
-            {current.desc}
-          </p>
-        </div>
+          className="absolute inset-0"
+          style={{ background: "rgba(0,0,0,0.40)", borderRadius: "24px" }}
+        />
 
-        {/* Dot indicators */}
-        <div className="flex gap-2 mt-10">
-          {problems.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => { setPhase("out"); setTimeout(() => { setIndex(i); setPhase("in"); }, 300); }}
-              style={{
-                width: i === index ? "24px" : "8px",
-                height: "8px",
-                borderRadius: "4px",
-                background: i === index ? "rgba(122,170,255,0.9)" : "rgba(255,255,255,0.25)",
-                border: "none",
-                cursor: "pointer",
-                transition: "all 0.4s ease",
-              }}
-            />
-          ))}
+        {/* ── Content — z-indexed above image ── */}
+        <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-2xl w-full">
+
+          {/* Badge */}
+          <span
+            className="inline-block mb-8 text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full"
+            style={{
+              background: "rgba(220,50,50,0.12)",
+              border: "1px solid rgba(220,80,80,0.28)",
+              color: "rgba(255,160,160,0.85)",
+              letterSpacing: "0.18em",
+            }}
+          >
+            The Problem
+          </span>
+
+          {/* Headline */}
+          <h2
+            className="text-4xl md:text-5xl font-bold leading-tight mb-4"
+            style={{ color: "#ffffff", textShadow: "0 2px 32px rgba(0,0,0,0.5)" }}
+          >
+            Stressed about{" "}
+            <span style={{ color: "#7aaaff" }}>Tax Filing?</span>
+          </h2>
+          <p
+            className="text-sm mb-12"
+            style={{ color: "rgba(180,205,255,0.60)", lineHeight: "1.75", maxWidth: "440px" }}
+          >
+            Most salaried individuals lose money and peace of mind every filing season — not because they&apos;re careless, but because the system is genuinely complicated.
+          </p>
+
+          {/* Cycling pain-point */}
+          <div
+            style={{
+              transition: "opacity 0.6s ease, transform 0.6s ease",
+              opacity: phase === "in" ? 1 : 0,
+              transform: phase === "in" ? "translateY(0px)" : "translateY(14px)",
+              willChange: "opacity, transform",
+            }}
+          >
+            <h3
+              className="text-4xl md:text-5xl font-bold mb-4"
+              style={{ color: "#ffffff", textShadow: "0 2px 20px rgba(0,0,0,0.6)" }}
+            >
+              {current.title}
+            </h3>
+            <p
+              className="text-lg font-medium leading-relaxed mx-auto"
+              style={{ color: "rgba(230,240,255,0.85)", maxWidth: "520px", textShadow: "0 1px 12px rgba(0,0,0,0.5)" }}
+            >
+              {current.desc}
+            </p>
+          </div>
+
+          {/* Dot indicators */}
+          <div className="flex gap-2 mt-10">
+            {problems.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => { setPhase("out"); setTimeout(() => { setIndex(i); setPhase("in"); }, 300); }}
+                style={{
+                  width: i === index ? "24px" : "8px",
+                  height: "8px",
+                  borderRadius: "4px",
+                  background: i === index ? "rgba(122,170,255,0.9)" : "rgba(255,255,255,0.25)",
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "all 0.4s ease",
+                }}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }
