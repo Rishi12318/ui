@@ -59,7 +59,7 @@ export default function Problem() {
       const progress = (window.innerHeight - rect.top) / (window.innerHeight + sectionH);
       const clamped = Math.max(0, Math.min(1, progress));
       const maxMove = imgH - sectionH;
-      img.style.transform = `translateX(-50%) translateY(${-clamped * maxMove}px)`;
+      img.style.transform = `translateY(${-clamped * maxMove}px)`;
     };
 
     const onScroll = () => {
@@ -80,13 +80,25 @@ export default function Problem() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden flex flex-col items-center justify-center"
+      className="relative flex flex-col items-center justify-center"
       style={{
         paddingTop: "96px",
         paddingBottom: "96px",
       }}
     >
-        {/* ── Parallax background image — taller than section so it can travel ── */}
+      {/* ── Full-width background wrapper: clips image vertically, spans 100vw ── */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          bottom: 0,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "100vw",
+          overflow: "hidden",
+          zIndex: 0,
+        }}
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           ref={imgRef}
@@ -95,9 +107,8 @@ export default function Problem() {
           style={{
             position: "absolute",
             top: "-140px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "100vw",
+            left: 0,
+            width: "100%",
             height: "calc(100% + 280px)",
             objectFit: "cover",
             objectPosition: "center center",
@@ -107,17 +118,15 @@ export default function Problem() {
             pointerEvents: "none",
           }}
         />
-
         {/* Overlay */}
         <div
-          className="absolute inset-y-0"
           style={{
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "100vw",
-            background: "rgba(0,0,0,0.40)",
+            position: "absolute",
+            inset: 0,
+            background: "rgba(0,0,0,0.42)",
           }}
         />
+      </div>
 
         {/* ── Content ── */}
         <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-2xl w-full">
