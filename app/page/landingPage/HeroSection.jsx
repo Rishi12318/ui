@@ -2,8 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import FogBackground from "@/components/FogBackground";
-import { useParallax } from "@/app/hooks/useParallax";
+import dynamic from "next/dynamic";
+
+// Lottie must be client-only (no SSR)
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
+
+import taxBgData from "@/public/Tax-MSM.json";
+import carTaxData from "@/public/car-tax.json";
 
 const fadeUp = (delay = 0) => ({
   hidden: { opacity: 0, y: 36 },
@@ -25,7 +30,6 @@ const phrases = [
 export default function HeroSection() {
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
-  const { sectionRef, bgRef } = useParallax(30);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,12 +47,45 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <div ref={sectionRef} className="relative min-h-screen flex items-center text-white">
-      <div ref={bgRef} style={{ position: "absolute", inset: 0, willChange: "transform", transformOrigin: "center center" }}>
-        <FogBackground />
+    <div
+      className="relative min-h-screen flex items-center text-white overflow-hidden"
+      style={{ background: "linear-gradient(135deg, #0d1b2a 0%, #1a2e45 60%, #0f2236 100%)" }}
+    >
+      {/* ── Tax-MSM background Lottie — fades in and out on loop ── */}
+      <motion.div
+        className="absolute inset-0 w-full h-full"
+        style={{ zIndex: 1, pointerEvents: "none" }}
+        animate={{ opacity: [0, 0.18, 0.22, 0.18, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <Lottie
+          animationData={taxBgData}
+          loop
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      </motion.div>
+
+      {/* slight dark scrim so text stays readable */}
+      <div
+        className="absolute inset-0"
+        style={{ background: "rgba(10,22,36,0.55)", zIndex: 2, pointerEvents: "none" }}
+      />
+
+      {/* ── Car-tax decorative Lottie — right side ── */}
+      <div
+        className="absolute right-0 bottom-0 hidden md:block"
+        style={{
+          width: "min(520px, 45vw)",
+          zIndex: 3,
+          pointerEvents: "none",
+          opacity: 0.85,
+        }}
+      >
+        <Lottie animationData={carTaxData} loop />
       </div>
 
-      <div className="relative z-10 max-w-3xl mx-auto px-10 py-20">
+      {/* ── Content ── */}
+      <div className="relative max-w-3xl mx-auto px-10 py-20" style={{ zIndex: 4 }}>
         {/* Badge */}
         <motion.span
           className="inline-block mb-6 text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full border"
