@@ -86,8 +86,9 @@ export default function Problem() {
         ref={sectionRef}
         className="relative mx-auto overflow-hidden flex flex-col items-center justify-center"
         style={{
-          maxWidth: "1200px",
-          height: "620px",
+          maxWidth: "1100px",
+          paddingTop: "96px",
+          paddingBottom: "96px",
           borderRadius: "24px",
           boxShadow: "0 24px 64px rgba(0,0,0,0.22)",
         }}
@@ -100,12 +101,12 @@ export default function Problem() {
           alt=""
           style={{
             position: "absolute",
-            top: 0,
+            top: "-140px",
             left: 0,
             width: "100%",
-            height: "155%",       /* taller than section = room to scroll */
+            height: "calc(100% + 280px)",  /* always 280px taller regardless of content height */
             objectFit: "cover",
-            objectPosition: "center top",
+            objectPosition: "center center",
             filter: "brightness(0.72) saturate(0.82)",
             willChange: "transform",
             userSelect: "none",
