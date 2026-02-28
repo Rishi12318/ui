@@ -176,7 +176,7 @@ export default function HeroSection() {
           variants={fadeUp(0.5)}
           initial="hidden"
           animate="visible"
-          style={{ width: "420px" }}
+          style={{ width: "580px" }}
         >
           <Lottie
             animationData={accountBalanceAnim}

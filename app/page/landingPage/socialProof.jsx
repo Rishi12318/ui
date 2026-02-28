@@ -7,37 +7,23 @@ const testimonials = [
   {
     name: "Arjun Mehta",
     role: "Software Engineer, Bengaluru",
-    quote: "Saved ₹24,000 in taxes this year. I had no idea I was eligible for so many deductions under the new regime.",
+    quote: "Saved ₹24,000 in taxes this year. The deduction finder alone paid for itself ten times over.",
     initials: "AM",
     color: "#4a7fa5",
   },
   {
     name: "Priya Sharma",
     role: "Product Manager, Hyderabad",
-    quote: "The HRA and LTA breakdown was a game changer. Filed my ITR in under 20 minutes — stress-free for the first time.",
+    quote: "Filed my ITR in under 20 minutes — completely stress-free for the first time ever.",
     initials: "PS",
     color: "#5a8f6e",
   },
   {
     name: "Rohan Desai",
     role: "Data Analyst, Pune",
-    quote: "Got a ₹38,500 refund I didn't even know I was owed. The regime comparison tool alone is worth it.",
+    quote: "Got a ₹38,500 refund I didn't even know I was owed. The regime comparison is a game changer.",
     initials: "RD",
     color: "#7a5fa5",
-  },
-  {
-    name: "Neha Kapoor",
-    role: "Chartered Accountant, Delhi",
-    quote: "I recommend this to all my clients. The salary structure optimizer handles edge cases even most CAs miss.",
-    initials: "NK",
-    color: "#a55f5f",
-  },
-  {
-    name: "Vikram Nair",
-    role: "Freelance Consultant, Mumbai",
-    quote: "As a freelancer, taxes were always a nightmare. Now I actually look forward to filing season.",
-    initials: "VN",
-    color: "#a5885f",
   },
 ];
 
@@ -108,104 +94,171 @@ export default function SocialProof() {
   }, []);
 
   return (
-    <section
-      style={{
-        background: "linear-gradient(180deg, #f0f4f8 0%, #e8eef5 100%)",
-        paddingTop: "96px",
-        paddingBottom: "96px",
-      }}
-    >
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
+    <section style={{ background: "linear-gradient(180deg, #f0f4f8 0%, #e8eef5 100%)" }}>
 
-        {/* ── Heading ── */}
-        <motion.div
-          className="text-center mb-16"
-          variants={fadeUp(0)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.4 }}
-        >
-          <span
-            className="inline-block text-xs font-bold tracking-widest uppercase mb-4"
-            style={{ color: "#4a7fa5", letterSpacing: "0.2em" }}
-          >
-            Trusted by Professionals
-          </span>
-          <h2
-            className="text-4xl md:text-5xl font-bold"
-            style={{ color: "#1e3a5f", letterSpacing: "-0.02em" }}
-          >
-            People Who Saved More With Us
-          </h2>
-        </motion.div>
+      {/* ── Collage image with reviews overlay ── */}
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          minHeight: "600px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          overflow: "hidden",
+        }}
+      >
+        {/* Background collage image */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://i.pinimg.com/736x/6b/33/87/6b3387c793624e79e2e7bbc4602427a2.jpg"
+          alt="testimonial collage"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center",
+          }}
+        />
 
-        {/* ── Testimonial grid ── */}
+        {/* Dark gradient overlay */}
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-            gap: "24px",
-            marginBottom: "80px",
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(180deg, rgba(10,25,47,0.72) 0%, rgba(10,25,47,0.62) 100%)",
+          }}
+        />
+
+        {/* Content */}
+        <div
+          style={{
+            position: "relative",
+            zIndex: 1,
+            width: "100%",
+            maxWidth: "1200px",
+            padding: "80px 24px",
+            margin: "0 auto",
           }}
         >
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={t.name}
-              variants={fadeUp(i * 0.1)}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              whileHover={{ y: -6, boxShadow: "0 20px 48px rgba(30,58,95,0.14)" }}
+          {/* Heading */}
+          <motion.div
+            className="text-center mb-12"
+            variants={fadeUp(0)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <span
               style={{
-                background: "#ffffff",
-                borderRadius: "18px",
-                padding: "28px",
-                boxShadow: "0 4px 24px rgba(30,58,95,0.07)",
-                transition: "box-shadow 0.3s ease",
-                cursor: "default",
+                color: "#7eb8e0",
+                fontSize: "0.75rem",
+                fontWeight: 700,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
               }}
             >
-              {/* Avatar + name */}
-              <div className="flex items-center gap-4 mb-5">
-                <div
+              Trusted by Professionals
+            </span>
+            <h2
+              style={{
+                color: "#ffffff",
+                fontSize: "clamp(2rem, 4vw, 3rem)",
+                fontWeight: 800,
+                letterSpacing: "-0.02em",
+                marginTop: "10px",
+              }}
+            >
+              People Who Saved More With Us
+            </h2>
+          </motion.div>
+
+          {/* Review cards */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "24px",
+            }}
+          >
+            {testimonials.map((t, i) => (
+              <motion.div
+                key={t.name}
+                variants={fadeUp(i * 0.15)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                style={{
+                  background: "rgba(255,255,255,0.1)",
+                  backdropFilter: "blur(16px)",
+                  WebkitBackdropFilter: "blur(16px)",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  borderRadius: "20px",
+                  padding: "28px",
+                }}
+              >
+                {/* Stars */}
+                <div style={{ display: "flex", gap: "4px", marginBottom: "14px" }}>
+                  {[...Array(5)].map((_, s) => (
+                    <span key={s} style={{ color: "#f59e0b", fontSize: "0.9rem" }}>
+                      &#9733;
+                    </span>
+                  ))}
+                </div>
+
+                {/* Quote */}
+                <p
                   style={{
-                    width: "52px",
-                    height: "52px",
-                    borderRadius: "50%",
-                    background: t.color,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "#fff",
-                    fontWeight: 700,
-                    fontSize: "1rem",
-                    flexShrink: 0,
+                    color: "#e2e8f2",
+                    fontSize: "0.93rem",
+                    lineHeight: 1.75,
+                    marginBottom: "22px",
                   }}
                 >
-                  {t.initials}
-                </div>
-                <div>
-                  <p style={{ fontWeight: 700, color: "#1e3a5f", fontSize: "0.95rem" }}>{t.name}</p>
-                  <p style={{ fontSize: "0.78rem", color: "#64748b", marginTop: "2px" }}>{t.role}</p>
-                </div>
-              </div>
+                  &ldquo;{t.quote}&rdquo;
+                </p>
 
-              {/* Stars */}
-              <div className="flex gap-1 mb-3">
-                {[...Array(5)].map((_, s) => (
-                  <span key={s} style={{ color: "#f59e0b", fontSize: "0.85rem" }}>&#9733;</span>
-                ))}
-              </div>
-
-              {/* Quote */}
-              <p style={{ color: "#374151", fontSize: "0.92rem", lineHeight: "1.7" }}>
-                &ldquo;{t.quote}&rdquo;
-              </p>
-            </motion.div>
-          ))}
+                {/* Avatar + name */}
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  <div
+                    style={{
+                      width: "44px",
+                      height: "44px",
+                      borderRadius: "50%",
+                      background: t.color,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#fff",
+                      fontWeight: 700,
+                      fontSize: "0.9rem",
+                      flexShrink: 0,
+                    }}
+                  >
+                    {t.initials}
+                  </div>
+                  <div>
+                    <p style={{ fontWeight: 700, color: "#ffffff", fontSize: "0.9rem" }}>
+                      {t.name}
+                    </p>
+                    <p style={{ fontSize: "0.75rem", color: "#94a3b8", marginTop: "2px" }}>
+                      {t.role}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
+      </div>
 
-        {/* ── Stats ── */}
+      {/* ── Stats + badges ── */}
+      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "80px 24px" }}>
+
+        {/* Stats */}
         <motion.div
           ref={statsRef}
           variants={fadeUp(0)}
@@ -220,7 +273,7 @@ export default function SocialProof() {
             borderRadius: "20px",
             padding: "48px 32px",
             boxShadow: "0 4px 32px rgba(30,58,95,0.08)",
-            marginBottom: "56px",
+            marginBottom: "48px",
             textAlign: "center",
           }}
         >
@@ -237,7 +290,7 @@ export default function SocialProof() {
           ))}
         </motion.div>
 
-        {/* ── Trust badges ── */}
+        {/* Trust badges */}
         <motion.div
           className="flex flex-wrap justify-center gap-4"
           variants={fadeUp(0.1)}
