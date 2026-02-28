@@ -21,7 +21,7 @@ const cards = [
     cta: "Continue as User →",
     href: "/dashboard/user",
     icon: (
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1e3a5f" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="8" r="4" />
         <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
       </svg>
@@ -34,7 +34,7 @@ const cards = [
     cta: "Continue as Admin →",
     href: "/dashboard/admin",
     icon: (
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1e3a5f" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="3" width="7" height="7" rx="1.5" />
         <rect x="14" y="3" width="7" height="7" rx="1.5" />
         <rect x="3" y="14" width="7" height="7" rx="1.5" />
@@ -85,9 +85,9 @@ export default function GetStartedPage() {
             textTransform: "uppercase",
             padding: "6px 18px",
             borderRadius: "999px",
-            border: "1px solid rgba(255,255,255,0.25)",
-            background: "rgba(255,255,255,0.1)",
-            color: "rgba(255,255,255,0.75)",
+            border: "1px solid rgba(0,0,0,0.15)",
+            background: "rgba(0,0,0,0.06)",
+            color: "#111827",
             fontStyle: "italic",
           }}
         >
@@ -104,7 +104,7 @@ export default function GetStartedPage() {
             fontWeight: 900,
             lineHeight: 1.1,
             letterSpacing: "-0.025em",
-            color: "#ffffff",
+            color: "#000000",
             textAlign: "center",
             marginBottom: "1rem",
           }}
@@ -119,9 +119,9 @@ export default function GetStartedPage() {
           animate="visible"
           style={{
             fontSize: "1.05rem",
-            fontWeight: 400,
+            fontWeight: 600,
             fontStyle: "italic",
-            color: "rgba(220,235,255,0.82)",
+            color: "#374151",
             textAlign: "center",
             marginBottom: "3.5rem",
             letterSpacing: "0.01em",
@@ -147,14 +147,14 @@ export default function GetStartedPage() {
               animate="visible"
               whileHover={{
                 y: -8,
-                boxShadow: "0 28px 64px rgba(0,0,0,0.3)",
-                background: "rgba(255,255,255,0.16)",
+                boxShadow: "0 28px 64px rgba(0,0,0,0.18)",
+                background: "rgba(255,255,255,0.85)",
               }}
               style={{
-                background: "rgba(255,255,255,0.09)",
+                background: "rgba(255,255,255,0.65)",
                 backdropFilter: "blur(18px)",
                 WebkitBackdropFilter: "blur(18px)",
-                border: "1px solid rgba(255,255,255,0.18)",
+                border: "1px solid rgba(0,0,0,0.08)",
                 borderRadius: "24px",
                 padding: "36px 32px",
                 display: "flex",
@@ -170,8 +170,8 @@ export default function GetStartedPage() {
                   width: "60px",
                   height: "60px",
                   borderRadius: "16px",
-                  background: "rgba(255,255,255,0.1)",
-                  border: "1px solid rgba(255,255,255,0.15)",
+                  background: "rgba(30,58,95,0.08)",
+                  border: "1px solid rgba(30,58,95,0.14)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -185,7 +185,7 @@ export default function GetStartedPage() {
                 style={{
                   fontSize: "1.55rem",
                   fontWeight: 900,
-                  color: "rgba(255,255,255,0.95)",
+                  color: "#000000",
                   letterSpacing: "-0.01em",
                   margin: 0,
                 }}
@@ -198,7 +198,8 @@ export default function GetStartedPage() {
                 style={{
                   fontSize: "0.95rem",
                   fontStyle: "italic",
-                  color: "rgba(210,228,255,0.82)",
+                  fontWeight: 600,
+                  color: "#374151",
                   lineHeight: 1.65,
                   margin: 0,
                   flexGrow: 1,
@@ -252,7 +253,7 @@ export default function GetStartedPage() {
             marginTop: "3rem",
             background: "none",
             border: "none",
-            color: "rgba(255,255,255,0.45)",
+            color: "#374151",
             fontSize: "0.82rem",
             fontStyle: "italic",
             cursor: "pointer",
@@ -260,8 +261,8 @@ export default function GetStartedPage() {
             transition: "color 0.2s",
             fontFamily: "var(--font-nunito), sans-serif",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.85)")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "#000000")}
+          onMouseLeave={(e) => (e.currentTarget.style.color = "#374151")}
         >
           ← Back to home
         </motion.button>
