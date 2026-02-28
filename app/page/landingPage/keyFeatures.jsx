@@ -5,9 +5,10 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const images = [
-  "https://assets-news.housing.com/news/wp-content/uploads/2022/06/02085815/Advance-tax-payment-Your-guide-to-advance-tax-and-advance-tax-payment-online.jpg",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_DX9sdBJH4Se8oFSXG_A9LtClVpcn6iH77g&s",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9V1n9oBDzCzEoZeK74tcUix1D9ZQA2qpTvQ&s",
+  "https://img.jagranjosh.com/images/2025/07/05/article/image/taxpayingcompanies-1751721967354.webp",
+  "https://cdn.finshots.app/images/2022/08/COV100.png",
+  "https://img.freepik.com/premium-vector/tax-payment-government-state-taxes-concept_8251-274.jpg",
+  "https://akm-img-a-in.tosshub.com/businesstoday/images/story/202306/tax-sixteen_nine.jpg?size=948:533",
 ];
 
 export default function KeyFeatures() {
