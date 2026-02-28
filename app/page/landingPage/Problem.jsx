@@ -59,7 +59,7 @@ export default function Problem() {
       const progress = (window.innerHeight - rect.top) / (window.innerHeight + sectionH);
       const clamped = Math.max(0, Math.min(1, progress));
       const maxMove = imgH - sectionH;
-      img.style.transform = `translateY(${-clamped * maxMove}px)`;
+      img.style.transform = `translateX(-50%) translateY(${-clamped * maxMove}px)`;
     };
 
     const onScroll = () => {
@@ -78,21 +78,14 @@ export default function Problem() {
   const current = problems[index];
 
   return (
-    /* ── outer wrapper: page-level padding, background colour between sections ── */
-    <div className="bg-[#f0f4f8] py-20 px-6 md:px-16">
-
-      {/* ── windowed section ── constrained, clips the moving image ── */}
-      <section
-        ref={sectionRef}
-        className="relative mx-auto overflow-hidden flex flex-col items-center justify-center"
-        style={{
-          maxWidth: "1100px",
-          paddingTop: "96px",
-          paddingBottom: "96px",
-          borderRadius: "24px",
-          boxShadow: "0 24px 64px rgba(0,0,0,0.22)",
-        }}
-      >
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden flex flex-col items-center justify-center"
+      style={{
+        paddingTop: "96px",
+        paddingBottom: "96px",
+      }}
+    >
         {/* ── Parallax background image — taller than section so it can travel ── */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -102,9 +95,10 @@ export default function Problem() {
           style={{
             position: "absolute",
             top: "-140px",
-            left: 0,
-            width: "100%",
-            height: "calc(100% + 280px)",  /* always 280px taller regardless of content height */
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "100vw",
+            height: "calc(100% + 280px)",
             objectFit: "cover",
             objectPosition: "center center",
             filter: "brightness(0.72) saturate(0.82)",
@@ -116,25 +110,17 @@ export default function Problem() {
 
         {/* Overlay */}
         <div
-          className="absolute inset-0"
-          style={{ background: "rgba(0,0,0,0.40)", borderRadius: "24px" }}
+          className="absolute inset-y-0"
+          style={{
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "100vw",
+            background: "rgba(0,0,0,0.40)",
+          }}
         />
 
-        {/* ── Content — z-indexed above image ── */}
+        {/* ── Content ── */}
         <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-2xl w-full">
-
-          {/* Badge */}
-          <span
-            className="inline-block mb-8 text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full"
-            style={{
-              background: "rgba(220,50,50,0.12)",
-              border: "1px solid rgba(220,80,80,0.28)",
-              color: "rgba(255,160,160,0.85)",
-              letterSpacing: "0.18em",
-            }}
-          >
-            The Problem
-          </span>
 
           {/* Headline */}
           <h2
@@ -194,6 +180,5 @@ export default function Problem() {
           </div>
         </div>
       </section>
-    </div>
   );
 }
