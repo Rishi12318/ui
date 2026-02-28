@@ -436,19 +436,52 @@ export default function UserOnboarding() {
           </form>
         </motion.div>
 
-        {/* Back link */}
-        <motion.div className="text-center mt-8" variants={fadeUp(0.3)} initial="hidden" animate="visible">
+        {/* Bottom links */}
+        <motion.div
+          className="text-center mt-8"
+          variants={fadeUp(0.3)}
+          initial="hidden"
+          animate="visible"
+          style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "14px" }}
+        >
+          {/* Sign in prompt */}
+          <div style={{
+            display: "flex", alignItems: "center", gap: "6px",
+            fontSize: "0.85rem", color: "rgba(255,255,255,0.75)",
+            fontFamily: "var(--font-nunito), sans-serif",
+            fontStyle: "italic",
+          }}>
+            Already have an account?&nbsp;
+            <button
+              onClick={() => router.push("/signin")}
+              style={{
+                background: "none", border: "none",
+                color: "#ffffff", fontWeight: 800,
+                fontSize: "0.85rem", fontStyle: "italic",
+                cursor: "pointer", textDecoration: "underline",
+                textUnderlineOffset: "3px",
+                fontFamily: "var(--font-nunito), sans-serif",
+                transition: "opacity 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.75")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+            >
+              Sign In
+            </button>
+          </div>
+
+          {/* Back link */}
           <button
             onClick={() => router.push("/get-started")}
             style={{
               background: "none", border: "none",
-              color: "rgba(255,255,255,0.55)", fontSize: "0.8rem",
+              color: "rgba(255,255,255,0.45)", fontSize: "0.78rem",
               fontStyle: "italic", cursor: "pointer",
               fontFamily: "var(--font-nunito), sans-serif",
               transition: "color 0.2s",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.9)")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.55)")}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.85)")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
           >
             ← Back to role selection
           </button>
