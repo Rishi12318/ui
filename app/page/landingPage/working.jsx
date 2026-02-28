@@ -11,7 +11,7 @@ export default function HowItWorks() {
         <div className="grid grid-cols-12 gap-0 rounded-[28px] overflow-hidden shadow-xl">
 
           {/* LEFT TOP BLUE CARD */}
-          <div className="col-span-12 md:col-span-4 bg-[#169fe6] text-white p-10 flex flex-col justify-between">
+          <div className="col-span-12 md:col-span-4 bg-[#4a7fa5] text-white p-10 flex flex-col justify-between">
             <div>
               <span className="text-sm font-semibold opacity-80">01</span>
               <h3 className="text-2xl font-bold mt-4">Enter PAN &amp; Salary</h3>
@@ -47,7 +47,7 @@ export default function HowItWorks() {
           </div>
 
           {/* RIGHT BLUE CARD */}
-          <div className="col-span-12 md:col-span-6 bg-[#169fe6] text-white p-10 flex flex-col justify-center">
+          <div className="col-span-12 md:col-span-6 bg-[#4a7fa5] text-white p-10 flex flex-col justify-center">
             <span className="text-sm font-semibold opacity-80">02</span>
             <h3 className="text-2xl font-bold mt-4">Analyze &amp; Optimize</h3>
             <p className="mt-4 text-white/90 max-w-md">
@@ -70,7 +70,7 @@ export default function HowItWorks() {
           </div>
 
           {/* RIGHT BOTTOM BLUE CARD */}
-          <div className="col-span-12 md:col-span-6 bg-[#169fe6] text-white p-10 rounded-tr-[120px] flex flex-col justify-center">
+          <div className="col-span-12 md:col-span-6 bg-[#4a7fa5] text-white p-10 rounded-tr-[120px] flex flex-col justify-center">
             <span className="text-sm font-semibold opacity-80">03</span>
             <h3 className="text-2xl font-bold mt-4">File &amp; Get Refund</h3>
             <p className="mt-4 text-white/90 max-w-md">
