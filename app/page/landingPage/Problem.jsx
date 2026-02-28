@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useParallax } from "@/app/hooks/useParallax";
 
 const problems = [
   {
@@ -24,6 +25,7 @@ const problems = [
 export default function Problem() {
   const [index, setIndex] = useState(0);
   const [phase, setPhase] = useState("in"); // "in" | "out"
+  const { sectionRef, bgRef } = useParallax(50);
 
   useEffect(() => {
     // Each card: 2.6s visible → 0.6s fade out → swap → fade in
@@ -55,17 +57,19 @@ export default function Problem() {
   const current = problems[index];
 
   return (
-    <section className="relative w-full min-h-screen overflow-hidden flex flex-col items-center justify-center">
+    <section ref={sectionRef} className="relative w-full min-h-screen overflow-hidden flex flex-col items-center justify-center">
 
       {/* ── Full-bleed background image ── */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
+        ref={bgRef}
         src="https://www.constructionspecifier.com/wp-content/uploads/2023/10/The-Spiral-BIG-foreshortened-bottom-to-top-view.jpg"
         alt=""
         className="absolute inset-0 w-full h-full object-cover"
         style={{
           filter: "brightness(0.75) saturate(0.85)",
-          transform: "scale(1.03)",
+          willChange: "transform",
+          transformOrigin: "center center",
         }}
       />
 

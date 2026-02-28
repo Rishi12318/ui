@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import FogBackground from "@/components/FogBackground";
+import { useParallax } from "@/app/hooks/useParallax";
 
 const fadeUp = (delay = 0) => ({
   hidden: { opacity: 0, y: 36 },
@@ -24,6 +25,7 @@ const phrases = [
 export default function HeroSection() {
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
+  const { sectionRef, bgRef } = useParallax(30);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -41,8 +43,10 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex items-center text-white">
-      <FogBackground />
+    <div ref={sectionRef} className="relative min-h-screen flex items-center text-white">
+      <div ref={bgRef} style={{ position: "absolute", inset: 0, willChange: "transform", transformOrigin: "center center" }}>
+        <FogBackground />
+      </div>
 
       <div className="relative z-10 max-w-3xl mx-auto px-10 py-20">
         {/* Badge */}
