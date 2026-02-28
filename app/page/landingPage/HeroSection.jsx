@@ -157,12 +157,14 @@ export default function HeroSection() {
           </button>
           <button
             className="px-8 py-3 rounded-lg font-semibold text-sm tracking-wide transition-all duration-200"
+            onClick={() => document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" })}
             style={{
               background: "rgba(255,255,255,0.08)",
               color: "rgba(255,255,255,0.9)",
               border: "1px solid rgba(255,255,255,0.2)",
               fontFamily: "var(--font-nunito), sans-serif",
               fontStyle: "italic",
+              cursor: "pointer",
             }}
             onMouseEnter={(e) =>
               (e.currentTarget.style.background = "rgba(255,255,255,0.14)")

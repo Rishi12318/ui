@@ -15,7 +15,7 @@ const fromRight = {
 
 export default function HowItWorks() {
   return (
-    <section className="bg-[#f5f9fc] py-24">
+    <section id="how-it-works" className="bg-[#f5f9fc] py-24">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* GRID */}
