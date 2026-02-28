@@ -2,13 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
-
-// Lottie must be client-only (no SSR)
-const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
-
-import taxBgData from "@/public/Tax-MSM.json";
-import carTaxData from "@/public/car-tax.json";
+import Lottie from "lottie-react";
+import accountBalanceAnim from "@/public/account-balance.json";
+import FogBackground from "@/components/FogBackground";
 
 const fadeUp = (delay = 0) => ({
   hidden: { opacity: 0, y: 36 },
@@ -47,45 +43,14 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <div
-      className="relative min-h-screen flex items-center text-white overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #0d1b2a 0%, #1a2e45 60%, #0f2236 100%)" }}
-    >
-      {/* ── Tax-MSM background Lottie — fades in and out on loop ── */}
-      <motion.div
-        className="absolute inset-0 w-full h-full"
-        style={{ zIndex: 1, pointerEvents: "none" }}
-        animate={{ opacity: [0, 0.18, 0.22, 0.18, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <Lottie
-          animationData={taxBgData}
-          loop
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
-        />
-      </motion.div>
+    <div className="relative min-h-screen flex items-center text-white">
+      <FogBackground />
 
-      {/* slight dark scrim so text stays readable */}
-      <div
-        className="absolute inset-0"
-        style={{ background: "rgba(10,22,36,0.55)", zIndex: 2, pointerEvents: "none" }}
-      />
+      {/* Two-column layout: text left, animation right */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-10 py-20 flex items-center gap-12">
 
-      {/* ── Car-tax decorative Lottie — right side ── */}
-      <div
-        className="absolute right-0 bottom-0 hidden md:block"
-        style={{
-          width: "min(520px, 45vw)",
-          zIndex: 3,
-          pointerEvents: "none",
-          opacity: 0.85,
-        }}
-      >
-        <Lottie animationData={carTaxData} loop />
-      </div>
-
-      {/* ── Content ── */}
-      <div className="relative max-w-3xl mx-auto px-10 py-20" style={{ zIndex: 4 }}>
+        {/* ── Left: text content ── */}
+        <div className="flex-1 min-w-0">
         {/* Badge */}
         <motion.span
           className="inline-block mb-6 text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full border"
@@ -203,7 +168,27 @@ export default function HeroSection() {
             See How It Works
           </button>
         </motion.div>
-      </div>
+        </div>{/* end left column */}
+
+        {/* ── Right: Lottie animation ── */}
+        <motion.div
+          className="hidden md:flex flex-shrink-0 items-center justify-center"
+          variants={fadeUp(0.5)}
+          initial="hidden"
+          animate="visible"
+          style={{ width: "420px" }}
+        >
+          <Lottie
+            animationData={accountBalanceAnim}
+            loop
+            style={{
+              width: "100%",
+              filter: "brightness(0) invert(1) opacity(0.88)",
+            }}
+          />
+        </motion.div>
+
+      </div>{/* end two-column wrapper */}
     </div>
   );
 }
