@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import accountBalanceAnim from "@/public/account-balance.json";
@@ -24,6 +25,7 @@ const phrases = [
 ];
 
 export default function HeroSection() {
+  const router = useRouter();
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
 
@@ -140,6 +142,7 @@ export default function HeroSection() {
         >
           <button
             className="px-8 py-3 font-semibold text-sm tracking-wide transition-all duration-200"
+            onClick={() => router.push("/get-started")}
             style={{
               background: "rgba(255,255,255,0.95)",
               color: "#2a4a6e",
