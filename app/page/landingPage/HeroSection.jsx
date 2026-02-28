@@ -1,15 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ImageGridBackground from "@/components/ImageGridBackground";
-import FogBackground from "@/app/animations/animation1";
+import { motion } from "framer-motion";
+import FogBackground from "@/components/FogBackground";
 
-// ─── Rotating phrases beneath the heading ─────────────────────────────────
+const fadeUp = (delay = 0) => ({
+  hidden: { opacity: 0, y: 36 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.85, ease: "easeOut", delay },
+  },
+});
+
 const phrases = [
-  "Compliance Made Easy",
-  "Tax Optimization",
-  "Smart Savings",
-  "Financial Planning",
+  "Simplify your tax filing.",
+  "Maximize your deductions.",
+  "Plan smarter, save more.",
+  "Stay ahead of deadlines.",
+  "Clarity in every calculation.",
 ];
 
 export default function HeroSection() {
@@ -18,195 +27,142 @@ export default function HeroSection() {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      // Fade out + slide up
       setVisible(false);
+
       setTimeout(() => {
         setIndex((prev) => (prev + 1) % phrases.length);
+        // Fade in + slide down to position
         setVisible(true);
-      }, 420);
+      }, 400); // matches transition duration
     }, 2800);
+
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section
-      className="relative min-h-screen flex items-center text-white overflow-hidden"
-      style={{ background: "#06111d" }}
-    >
-      {/* ══════════════════════════════════════════════
-          LAYER 1 — Animated image collage grid   z:0
-          Powered by @keyframes animation1 (globals.css)
-      ══════════════════════════════════════════════ */}
-      <ImageGridBackground />
+    <div className="relative min-h-screen flex items-center text-white">
+      <FogBackground />
 
-      {/* ══════════════════════════════════════════════
-          LAYER 2 — Vanta fog  (animation1.jsx)   z:10
-          Semi-transparent so images show beneath
-      ══════════════════════════════════════════════ */}
-      <div
-        className="absolute inset-0"
-        style={{ zIndex: 10, opacity: 0.60, pointerEvents: "none" }}
-      >
-        <FogBackground />
-      </div>
-
-      {/* ══════════════════════════════════════════════
-          LAYER 3 — Dark blue gradient overlay    z:20
-      ══════════════════════════════════════════════ */}
-      {/* Top/bottom vertical burnin */}
-      <div
-        className="absolute inset-0"
-        style={{
-          zIndex: 20,
-          pointerEvents: "none",
-          background:
-            "linear-gradient(to bottom, rgba(6,17,29,0.78) 0%, rgba(6,17,29,0.40) 35%, rgba(6,17,29,0.40) 65%, rgba(6,17,29,0.85) 100%)",
-        }}
-      />
-      {/* Diagonal blue-gray tonal wash */}
-      <div
-        className="absolute inset-0"
-        style={{
-          zIndex: 20,
-          pointerEvents: "none",
-          background:
-            "linear-gradient(130deg, rgba(12,35,80,0.52) 0%, rgba(20,50,100,0.20) 50%, rgba(8,24,60,0.52) 100%)",
-        }}
-      />
-      {/* Left edge dissolve */}
-      <div
-        className="absolute inset-y-0 left-0"
-        style={{
-          zIndex: 20,
-          width: "16rem",
-          pointerEvents: "none",
-          background: "linear-gradient(to right, rgba(6,17,29,1) 0%, transparent 100%)",
-        }}
-      />
-      {/* Right edge dissolve */}
-      <div
-        className="absolute inset-y-0 right-0"
-        style={{
-          zIndex: 20,
-          width: "16rem",
-          pointerEvents: "none",
-          background: "linear-gradient(to left, rgba(6,17,29,1) 0%, transparent 100%)",
-        }}
-      />
-
-      {/* ══════════════════════════════════════════════
-          LAYER 4 — Hero content (fully static)   z:30
-      ══════════════════════════════════════════════ */}
-      <div
-        className="relative w-full max-w-4xl mx-auto px-10 py-28"
-        style={{ zIndex: 30 }}
-      >
+      <div className="relative z-10 max-w-3xl mx-auto px-10 py-20">
         {/* Badge */}
-        <span
-          className="inline-block mb-7 text-xs font-semibold uppercase px-4 py-1.5 rounded-full border"
+        <motion.span
+          className="inline-block mb-6 text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full border"
           style={{
+            borderColor: "rgba(255,255,255,0.25)",
+            backgroundColor: "rgba(255,255,255,0.08)",
+            color: "rgba(255,255,255,0.75)",
             letterSpacing: "0.18em",
-            borderColor: "rgba(130,175,255,0.28)",
-            backgroundColor: "rgba(50,100,210,0.10)",
-            color: "rgba(170,208,255,0.82)",
+            fontFamily: "var(--font-nunito), sans-serif",
           }}
+          variants={fadeUp(0)}
+          initial="hidden"
+          animate="visible"
         >
           Financial Planning &amp; Tax Management
-        </span>
+        </motion.span>
 
-        {/* H1 */}
-        <h1
-          className="font-bold tracking-tight leading-none mb-5"
+        {/* Outlined heading - hollow stroke style */}
+        <motion.h1
+          variants={fadeUp(0.2)}
+          initial="hidden"
+          animate="visible"
           style={{
-            fontSize: "clamp(3rem, 7.5vw, 5.75rem)",
-            color: "#ffffff",
-            textShadow: "0 4px 48px rgba(0,0,0,0.55)",
+            fontFamily: "var(--font-nunito), sans-serif",
+            fontSize: "clamp(4rem, 10vw, 7.5rem)",
+            fontWeight: 900,
+            lineHeight: 1,
+            letterSpacing: "-0.02em",
+            color: "transparent",
+            WebkitTextStroke: "2.5px rgba(255,255,255,0.92)",
+            marginBottom: "1.5rem",
           }}
         >
           Tax Planner
-        </h1>
+        </motion.h1>
 
-        {/* Supporting line */}
-        <p
-          className="mb-7"
+        {/* Sub-headline */}
+        <motion.p
+          variants={fadeUp(0.4)}
+          initial="hidden"
+          animate="visible"
           style={{
-            fontSize: "1rem",
-            color: "rgba(180,212,255,0.72)",
-            maxWidth: "440px",
-            lineHeight: "1.8",
+            fontFamily: "var(--font-nunito), sans-serif",
+            fontSize: "1.15rem",
+            fontWeight: 700,
+            color: "rgba(255,255,255,0.88)",
+            letterSpacing: "0.01em",
+            marginBottom: "1.25rem",
           }}
         >
           Stay ahead of deadlines. Plan your taxes with confidence.
-        </p>
+        </motion.p>
 
-        {/* Rotating arrow phrase */}
-        <div
-          className="flex items-center gap-3 mb-12"
-          style={{ minHeight: "2.25rem" }}
+        {/* Cycling phrase */}
+        <motion.div
+          className="flex items-center gap-3 min-h-[2.5rem]"
+          variants={fadeUp(0.55)}
+          initial="hidden"
+          animate="visible"
         >
-          <span style={{ fontSize: "1.25rem", color: "rgba(110,175,255,0.95)" }}>
-            →
-          </span>
+          <span style={{ color: "rgba(180,210,255,0.9)", fontSize: "1.4rem" }}>&#8594;</span>
           <p
             style={{
-              fontSize: "1.15rem",
-              fontWeight: 500,
-              color: "rgba(200,228,255,0.93)",
-              letterSpacing: "0.01em",
-              transition: "opacity 0.42s ease, transform 0.42s ease",
+              fontFamily: "var(--font-nunito), sans-serif",
+              fontSize: "1.1rem",
+              fontWeight: 400,
+              color: "rgba(220,235,255,0.92)",
+              transition: "opacity 0.4s ease, transform 0.4s ease",
               opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(-8px)",
+              transform: visible ? "translateY(0px)" : "translateY(-8px)",
               willChange: "opacity, transform",
             }}
           >
             {phrases[index]}
           </p>
-        </div>
+        </motion.div>
 
         {/* CTA buttons */}
-        <div className="flex flex-wrap gap-4">
+        <motion.div
+          className="flex flex-wrap gap-4 mt-12"
+          variants={fadeUp(0.7)}
+          initial="hidden"
+          animate="visible"
+        >
           <button
-            className="px-8 py-3.5 rounded-lg font-semibold text-sm"
+            className="px-8 py-3 rounded-lg font-semibold text-sm tracking-wide transition-all duration-200"
             style={{
-              background: "#ffffff",
-              color: "#0f2244",
-              letterSpacing: "0.02em",
-              boxShadow: "0 6px 30px rgba(0,0,0,0.30)",
-              transition: "box-shadow 0.18s ease, transform 0.15s ease",
+              background: "rgba(255,255,255,0.95)",
+              color: "#2a4a6e",
+              fontFamily: "var(--font-nunito), sans-serif",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0 10px 40px rgba(0,0,0,0.42)";
-              e.currentTarget.style.transform = "translateY(-2px)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "0 6px 30px rgba(0,0,0,0.30)";
-              e.currentTarget.style.transform = "translateY(0)";
-            }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "#ffffff")}
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.background = "rgba(255,255,255,0.95)")
+            }
           >
             Get Started Free
           </button>
-
           <button
-            className="px-8 py-3.5 rounded-lg font-semibold text-sm"
+            className="px-8 py-3 rounded-lg font-semibold text-sm tracking-wide transition-all duration-200"
             style={{
-              background: "rgba(255,255,255,0.06)",
-              color: "rgba(200,228,255,0.90)",
-              border: "1px solid rgba(120,170,255,0.22)",
-              letterSpacing: "0.02em",
-              transition: "background 0.18s ease, transform 0.15s ease",
+              background: "rgba(255,255,255,0.08)",
+              color: "rgba(255,255,255,0.9)",
+              border: "1px solid rgba(255,255,255,0.2)",
+              fontFamily: "var(--font-nunito), sans-serif",
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(255,255,255,0.12)";
-              e.currentTarget.style.transform = "translateY(-2px)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "rgba(255,255,255,0.06)";
-              e.currentTarget.style.transform = "translateY(0)";
-            }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.background = "rgba(255,255,255,0.14)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.background = "rgba(255,255,255,0.08)")
+            }
           >
             See How It Works
           </button>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </div>
   );
 }
