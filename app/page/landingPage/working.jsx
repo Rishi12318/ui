@@ -28,7 +28,7 @@ export default function HowItWorks() {
               Our Simple &amp; Transparent <br /> Tax Filing Process
             </h2>
             <p className="text-gray-600 mt-6 max-w-xl">
-              We simplify tax planning with a clear, step-by-step process — from insights to filing and refunds.
+              We simplify tax planning with a clear, step-by-step process &#8212; from insights to filing and refunds.
             </p>
           </div>
 
