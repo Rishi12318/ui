@@ -5,26 +5,55 @@ import HowItWorks from "@/app/page/landingPage/working";
 
 export default function Home() {
   return (
-    <div className="relative">
-      {/* Hero — base layer */}
-      <div className="relative z-10">
+    <div style={{ position: "relative", overflow: "visible" }}>
+
+      {/* Section A: Hero — base layer, sits at the bottom of the stack */}
+      <div style={{ position: "relative", zIndex: 1 }}>
         <HeroSection />
       </div>
 
-      {/* Problem — overlaps Hero by 48px */}
-      <div className="relative z-20 -mt-12 rounded-t-[2.5rem] overflow-hidden shadow-[0_-8px_32px_rgba(0,0,0,0.18)]">
+      {/* Section B: Problem — pulls up over Hero */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
+          marginTop: "-3rem",
+          borderRadius: "2.5rem 2.5rem 0 0",
+          overflow: "hidden",
+          boxShadow: "0 -6px 40px rgba(0,0,0,0.20)",
+        }}
+      >
         <Problem />
       </div>
 
-      {/* KeyFeatures — overlaps Problem */}
-      <div className="relative z-30 -mt-12 rounded-t-[2.5rem] overflow-hidden shadow-[0_-8px_32px_rgba(0,0,0,0.18)]">
+      {/* Section C: KeyFeatures — pulls up over Problem */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 3,
+          marginTop: "-3rem",
+          borderRadius: "2.5rem 2.5rem 0 0",
+          overflow: "hidden",
+          boxShadow: "0 -6px 40px rgba(0,0,0,0.20)",
+        }}
+      >
         <KeyFeatures />
       </div>
 
-      {/* HowItWorks — overlaps KeyFeatures */}
-      <div className="relative z-40 -mt-12 rounded-t-[2.5rem] overflow-hidden shadow-[0_-8px_32px_rgba(0,0,0,0.18)]">
+      {/* Section D: HowItWorks — pulls up over KeyFeatures */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 4,
+          marginTop: "-3rem",
+          borderRadius: "2.5rem 2.5rem 0 0",
+          overflow: "hidden",
+          boxShadow: "0 -6px 40px rgba(0,0,0,0.20)",
+        }}
+      >
         <HowItWorks />
       </div>
+
     </div>
   );
 }
