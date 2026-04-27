@@ -12,7 +12,7 @@ const testimonials = [
     color: "#4a7fa5",
   },
   {
-    name: "Priya Sharma",
+    name: "Tanisha Sharma",
     role: "Product Manager, Hyderabad",
     quote: "Filed my ITR in under 20 minutes — completely stress-free for the first time ever.",
     initials: "PS",

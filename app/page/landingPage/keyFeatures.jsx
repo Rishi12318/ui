@@ -3,7 +3,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useParallax } from "@/app/hooks/useParallax";
 
 const images = [
   "https://img.jagranjosh.com/images/2025/07/05/article/image/taxpayingcompanies-1751721967354.webp",
@@ -14,7 +13,6 @@ const images = [
 
 export default function KeyFeatures() {
   const [current, setCurrent] = useState(0);
-  const { sectionRef, bgRef } = useParallax(40);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -24,10 +22,10 @@ export default function KeyFeatures() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative bg-[#5f7f99] overflow-hidden min-h-screen flex items-center">
+    <section className="relative bg-[#5f7f99] overflow-hidden min-h-screen flex items-center">
 
       {/* RIGHT — full-height image panel covering entire right half */}
-      <div ref={bgRef} className="absolute top-0 right-0 w-1/2 h-full z-0" style={{ willChange: "transform", transformOrigin: "center center" }}>
+      <div className="absolute top-0 right-0 w-1/2 h-full z-0">
         <AnimatePresence mode="wait">
           <motion.div
             key={current}
