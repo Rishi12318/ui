@@ -28,6 +28,21 @@ const cards = [
     ),
   },
   {
+    role: "engine",
+    title: "Decision Engine",
+    description: "Create rules and evaluate inputs against your Django backend",
+    cta: "Open Decision Engine →",
+    href: "/decision-engine",
+    icon: (
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1e3a5f" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 6h16" />
+        <path d="M4 12h10" />
+        <path d="M4 18h7" />
+        <circle cx="18" cy="12" r="3" />
+      </svg>
+    ),
+  },
+  {
     role: "admin",
     title: "Admin",
     description: "Manage filings, users, and compliance",
